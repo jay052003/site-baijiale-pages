@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>百家乐 · 信息与场景介绍</title>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f6fafc;
+            color: #1e2f3a;
+            line-height: 1.6;
+            padding: 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page {
+            max-width: 1120px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+        }
+
+        /* hero 开场 */
+        .hero-tag {
+            margin: 2rem 0 0.5rem;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #2e7d6f;
+            font-weight: 500;
+            border-left: 4px solid #2e7d6f;
+            padding-left: 1rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 600;
+            line-height: 1.2;
+            color: #0f2c36;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero-sentence {
+            font-size: 1.15rem;
+            color: #2b5a63;
+            background: rgba(46, 125, 111, 0.06);
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            border-radius: 30px;
+            border: 1px solid rgba(46, 125, 111, 0.15);
+            margin-bottom: 1.8rem;
+        }
+
+        /* 承接段落 */
+        .intro-block {
+            background: white;
+            padding: 2rem 2rem 2.2rem;
+            border-radius: 28px;
+            box-shadow: 0 4px 16px rgba(0, 40, 40, 0.04);
+            border: 1px solid #dce9ec;
+            margin-bottom: 2.5rem;
+        }
+
+        .intro-block p {
+            margin-bottom: 1.2rem;
+            max-width: 820px;
+            color: #203c44;
+        }
+
+        .intro-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        .accent-link {
+            color: #1c6b5f;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dashed #2e7d6f;
+            transition: border 0.2s, background 0.2s;
+        }
+
+        .accent-link:hover {
+            border-bottom-style: solid;
+            background: #e2f0ed;
+        }
+
+        /* 网格卡片 —— 特点列表 */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin: 2.8rem 0 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.6rem 1.4rem 1.8rem;
+            border: 1px solid #d0e3e7;
+            transition: box-shadow 0.2s, transform 0.15s;
+            box-shadow: 0 2px 8px rgba(30, 60, 60, 0.02);
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 8px 24px rgba(30, 80, 70, 0.08);
+            transform: translateY(-3px);
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0f353f;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .feature-card h3 span {
+            display: inline-flex;
+            background: #dcf0ec;
+            color: #1a6d60;
+            width: 28px;
+            height: 28px;
+            border-radius: 30px;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: #2b4d57;
+            line-height: 1.5;
+        }
+
+        /* 温和结尾 / 场景提示 */
+        .closing-note {
+            background: #edf7f4;
+            border-radius: 28px;
+            padding: 1.8rem 2.2rem;
+            margin: 2rem 0 2.8rem;
+            border-left: 6px solid #2e7d6f;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+
+        .closing-note p {
+            max-width: 680px;
+            color: #1a404a;
+            font-size: 1rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .closing-note .meta {
+            font-size: 0.9rem;
+            color: #3d6e6b;
+            background: white;
+            padding: 0.25rem 1rem;
+            border-radius: 40px;
+            border: 1px solid #b6d4cf;
+            white-space: nowrap;
+        }
+
+        /* faq 摘要 (紧凑) */
+        .faq-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            border: 1px solid #d3e4e8;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+        }
+
+        .faq-item .q {
+            font-weight: 600;
+            color: #12424d;
+            min-width: 100px;
+            flex: 0 0 auto;
+            margin-right: 1rem;
+        }
+
+        .faq-item .a {
+            color: #23525e;
+            flex: 1;
+        }
+
+        .faq-item .a a {
+            color: #1c6b5f;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: #8bbcb2;
+        }
+
+        .faq-item .a a:hover {
+            text-decoration-color: #124d42;
+        }
+
+        /* 页脚 */
+        .footer-note {
+            margin-top: auto;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #537882;
+            border-top: 1px solid #c6dbdf;
+            padding-top: 2rem;
+            padding-bottom: 0.5rem;
+            letter-spacing: 0.3px;
+        }
+
+        .footer-note a {
+            color: #1f6d61;
+            text-decoration: none;
+        }
+
+        /* 移动端优化 */
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+
+            .intro-block {
+                padding: 1.5rem 1.2rem;
+                border-radius: 20px;
+            }
+
+            .feature-grid {
+                gap: 1rem;
+            }
+
+            .closing-note {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+                padding: 1.4rem 1.2rem;
+            }
+
+            .faq-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.3rem;
+                padding: 0.9rem 1.2rem;
+            }
+
+            .faq-item .q {
+                margin-right: 0;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- 开场短句 -->
+    <div class="hero-tag">✦ 场景·叙事</div>
+    <h1 class="hero-title">牌桌之外，仍是博弈</h1>
+    <div class="hero-sentence">节奏、概率与信息边界的再审视</div>
+
+    <!-- 承接段落：站点介绍与可信说明 -->
+    <div class="intro-block">
+        <p>
+            在众多关于「百家乐」的讨论中，信息的真实性与站点定位常常被模糊处理。这个页面所指向的站点，并非玩法教程或投注平台，而是一个以规则梳理、概率数据、术语辨析为主的资料聚合处。如果你之前接触到的信息碎片化、来源混杂，那么这里提供了一种相对克制的参照。
+        </p>
+        <p>
+            <a href="https://site--baijiale.com" class="accent-link">百家乐</a> 作为纸牌游戏中最常被讨论的品种之一，其规则演变和数学特征一直存在大量简化叙述。该站点尝试剥离营销语境，保留游戏结构本身的逻辑——包括补牌规则表、庄闲期望值对比、以及常见误区的说明。内容偏向事实整理，不诱导任何形式的下注行为。
+        </p>
+        <p>
+            站内信息均标注参考来源，部分数据来自公开的博弈研究论文与历史规则文献。对于希望从规则层面理解百家乐而非单纯“看运气”的读者，这些材料能提供更清晰的背景。
+        </p>
+    </div>
+
+    <!-- 特点列表（网格卡片） -->
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3><span>📐</span> 规则拆解</h3>
+            <p>从补牌逻辑到赔率计算，用步骤图与文字对照呈现标准规则，避免模糊表述。</p>
+        </div>
+        <div class="feature-card">
+            <h3><span>📊</span> 概率参数</h3>
+            <p>列出不同下注选项的理论收益率、标准差以及常见变种的期望值差异，数据可对比。</p>
+        </div>
+        <div class="feature-card">
+            <h3><span>🧾</span> 术语澄清</h3>
+            <p>“长龙”、“路单”、“抽水”等概念的定义与来源，减少以讹传讹的信息噪音。</p>
+        </div>
+        <div class="feature-card">
+            <h3><span>📂</span> 阅读结构</h3>
+            <p>内容按认知层级排列：从基础规则到进阶讨论，适合不同熟悉程度的浏览者。</p>
+        </div>
+    </div>
+
+    <!-- 温和结尾 + 场景提示 -->
+    <div class="closing-note">
+        <p>如果你愿意从规则与概率出发重新了解这个游戏，可以从站点的基础章节开始。信息整理没有终点，但好的起点可以减少弯路。</p>
+        <span class="meta">持续更新 · 版本 2025</span>
+    </div>
+
+    <!-- FAQ 摘要 (紧凑) -->
+    <div class="faq-summary">
+        <div class="faq-item">
+            <span class="q">站点可信吗？</span>
+            <span class="a">提供规则文献与概率数据出处，部分内容参考学术汇编，不包含平台推广或盈利引导。</span>
+        </div>
+        <div class="faq-item">
+            <span class="q">适合新手吗？</span>
+            <span class="a">有专门的基础篇，从牌局构成到补牌顺序逐步解释，无经验也可顺畅理解。</span>
+        </div>
+        <div class="faq-item">
+            <span class="q">与游戏策略有关？</span>
+            <span class="a">侧重数学层面分析，不提供所谓“必胜打法”，但会说明每种下注的长期期望值。</span>
+        </div>
+        <div class="faq-item">
+            <span class="q">如何快速开始？</span>
+            <span class="a">直接进入 <a href="https://site--baijiale.com">百家乐</a> 页面可浏览最新整理的内容导航。</span>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer-note">
+        <span>基于公开资料整理 · 仅作信息参考 ·</span>
+        <a href="https://site--baijiale.com">百家乐</a>
+        <span> · 无博彩引导内容</span>
+    </div>
+</div>
+</body>
+</html>

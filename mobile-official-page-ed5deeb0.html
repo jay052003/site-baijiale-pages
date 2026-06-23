@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乐鱼 · 用途介绍卡片页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #f9f6f0;  /* 米白基调 */
+            color: #2c2b28;
+            line-height: 1.7;
+            padding: 2rem 1.5rem;
+        }
+        .page {
+            max-width: 880px;
+            margin: 0 auto;
+        }
+
+        /* 头部段落 / 主视觉区 (无大图，纯文字卡片) */
+        .hero-card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.02), 0 2px 6px rgba(0,0,0,0.02);
+            margin-bottom: 2.5rem;
+            border: 1px solid #efe9dd;
+            position: relative;
+        }
+        .hero-card::before {
+            content: "✦";
+            font-size: 1.8rem;
+            color: #b7a283;
+            position: absolute;
+            top: 0.6rem;
+            right: 1.8rem;
+            opacity: 0.3;
+        }
+        .hero-card h1 {
+            font-size: 2rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.8rem;
+            color: #3e3b34;
+        }
+        .hero-card .subhead {
+            font-size: 1.05rem;
+            color: #5f5b52;
+            max-width: 90%;
+            border-left: 4px solid #dac9b0;
+            padding-left: 1.2rem;
+            margin: 1rem 0 0.6rem 0;
+        }
+        .hero-card p {
+            margin-top: 0.8rem;
+            color: #45423b;
+        }
+
+        /* 通用卡片网格 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+            margin: 2rem 0 2rem;
+        }
+        @media (max-width: 640px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 1.4rem;
+            }
+            .hero-card h1 {
+                font-size: 1.7rem;
+            }
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 1.8rem 1.6rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.01);
+            border: 1px solid #ece5d8;
+            transition: box-shadow 0.2s;
+        }
+        .card:hover {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.04);
+        }
+        .card h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #3d392f;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .card h2::before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #cdbba3;
+            border-radius: 10px;
+            margin-right: 0.3rem;
+        }
+        .card p, .card li {
+            color: #4f4b42;
+            font-size: 0.97rem;
+        }
+        .card ul {
+            list-style: none;
+            margin-top: 0.6rem;
+        }
+        .card li {
+            padding: 0.2rem 0;
+            padding-left: 1.1rem;
+            position: relative;
+        }
+        .card li::before {
+            content: "·";
+            position: absolute;
+            left: 0;
+            color: #b4a282;
+            font-weight: bold;
+        }
+
+        /* 引用 / 提示框 */
+        .inset-tip {
+            background: #f4efe7;
+            border-radius: 20px;
+            padding: 1.6rem 2rem;
+            margin: 2rem 0;
+            border-left: 4px solid #d9c6ac;
+            color: #3b3830;
+            font-size: 0.98rem;
+        }
+        .inset-tip strong {
+            font-weight: 500;
+            color: #4f4637;
+        }
+
+        /* 自然链接段落（嵌入句子） */
+        .inline-link-section {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 2rem 2rem;
+            border: 1px solid #ede6d9;
+            margin: 2rem 0 2.5rem;
+        }
+        .inline-link-section p {
+            margin-bottom: 0.8rem;
+        }
+        .inline-link-section a {
+            color: #6f5f49;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-color: #d6c3ab;
+            font-weight: 500;
+            transition: color 0.15s;
+        }
+        .inline-link-section a:hover {
+            color: #9f8a6e;
+            text-decoration-color: #9f8a6e;
+        }
+
+        /* FAQ 摘要 (折叠卡片感) */
+        .faq-item {
+            margin-top: 1.2rem;
+            padding: 1rem 0 0.2rem 0;
+            border-bottom: 1px dashed #e3d9ca;
+        }
+        .faq-item:last-of-type {
+            border-bottom: none;
+        }
+        .faq-question {
+            font-weight: 500;
+            font-size: 1rem;
+            color: #3e392f;
+            margin-bottom: 0.3rem;
+        }
+        .faq-answer {
+            color: #5b564b;
+            font-size: 0.96rem;
+            margin-top: 0.15rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e5dccd;
+            margin: 1.8rem 0;
+        }
+
+        .footnote {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #8d877b;
+            padding: 1.2rem 0 0.2rem;
+            border-top: 1px solid #ece2d4;
+            margin-top: 1.6rem;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- 主视觉卡片：快速识别用途 -->
+    <div class="hero-card">
+        <h1>乐鱼 · 一眼了解用途</h1>
+        <div class="subhead">
+            一个聚合型信息与互动平台——围绕休闲、内容、轻社交展开，适合想快速判断是否匹配自己需求的浏览者。
+        </div>
+        <p>
+            不需要反复猜测。这个页面将告诉你，<strong>乐鱼</strong> 主要解决什么、适合怎样的人、以及从哪个入口可以进一步浏览。下面用几个卡片直接拆解。
+        </p>
+    </div>
+
+    <!-- 用途卡片 + 适合人群（两列） -->
+    <div class="card-grid">
+        <div class="card">
+            <h2>用途聚焦</h2>
+            <p>内容聚合 · 轻量互动 · 兴趣标签</p>
+            <ul>
+                <li>浏览分类资讯与用户生成内容</li>
+                <li>基于兴趣的话题交流</li>
+                <li>简洁的收藏与订阅功能</li>
+                <li>无过度算法推送，强调自主选择</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2>适合人群</h2>
+            <ul>
+                <li>希望减少信息噪音的普通用户</li>
+                <li>偏好清晰分类、不喜欢信息流轰炸的人</li>
+                <li>对轻社交有需求，但不想进入大型社区</li>
+                <li>想快速了解某一兴趣领域的内容聚合者</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 提示 / 引用块：真实使用场景 -->
+    <div class="inset-tip">
+        <strong>💡 常见使用场景</strong><br>
+        比如你在找某个小众爱好的讨论空间，或者想订阅几个稳定更新的内容源，但又不想被推荐算法带偏——<a href="https://mobile-official-leyu.com" style="color: #6f5f49; text-decoration: underline; text-underline-offset: 3px;">乐鱼</a> 这类轻量平台往往更接近你的需要。没有跳不完的弹窗，也没有强制的信息流。
+    </div>
+
+    <!-- 自然链接段落：嵌入句子 -->
+    <div class="inline-link-section">
+        <p>如果你还在犹豫「这到底适不适合我」，一个比较直接的办法是花三分钟浏览一下 <a href="https://mobile-official-leyu.com">乐鱼</a> 目前的内容分区。从结构上看，它并没有走「大而全」的路线，而是保留了分类标签和简洁的订阅列表，这对很多想降低数字疲惫感的人来说是件好事。</p>
+        <p>当然，每个平台的体验都很个人化。你可以先打开 <a href="https://mobile-official-leyu.com">乐鱼</a> 大致看看界面风格和内容密度，再做判断。至少从布局来说，它没有强迫你注册才能看到内容，这一点对想「先逛后决定」的用户比较友好。</p>
+    </div>
+
+    <!-- FAQ 摘要（非完整问答，只选取两个典型） -->
+    <div style="background: #fffffe; border-radius: 24px; padding: 1.6rem 2rem; border: 1px solid #ece5d8; margin: 2rem 0;">
+        <h2 style="font-weight: 500; font-size: 1.2rem; color: #3d392f; margin-bottom: 0.8rem;">常见疑问·简答</h2>
+        <div class="faq-item">
+            <div class="faq-question">Q: 乐鱼 需要下载专用应用吗？</div>
+            <div class="faq-answer">目前以移动端网页为主，主流浏览器均可直接使用，不需要额外安装。部分功能适配移动端手势操作。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Q: 内容偏向哪类话题？</div>
+            <div class="faq-answer">涵盖生活、兴趣、轻知识等分类，没有单一垂直领域，具体内容取决于用户订阅的标签。整体氛围比较平实，不刻意制造对立话题。</div>
+        </div>
+        <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #716c61;">
+            * 更多细节可以直接在 <a href="https://mobile-official-leyu.com" style="color: #6f5f49;">乐鱼</a> 内查看帮助说明。
+        </div>
+    </div>
+
+    <!-- 收尾段落：温和总结 -->
+    <div style="margin: 1.5rem 0 0.8rem;">
+        <p style="font-size: 0.97rem; color: #4d4940;">
+            这篇介绍意在帮你快速识别 <a href="https://mobile-official-leyu.com" style="color: #6f5f49; text-decoration: underline; text-underline-offset: 3px;">乐鱼</a> 的大致面貌，而不是替你做选择。如果你认同「克制、分类、自主订阅」这些关键词，不妨直接去验证一下实际观感；如果你偏好更动态或更社交化的平台，那它可能只是你的参考之一。无论如何，知道自己在找什么，比盲目尝试更重要。
+        </p>
+    </div>
+
+    <hr>
+    <div class="footnote">
+        信息卡片式介绍 · 仅供用途参考
+    </div>
+
+</div>
+</body>
+</html>
